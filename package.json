@@ -1,0 +1,14 @@
+{
+  "name": "smartrockets",
+  "version": "0.0.1",
+  "description": "\"initial build without any tweaking etc.\"",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "serve ./public"
+  },
+  "author": "dilip98914@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^10.1.1"
+  }
+}
