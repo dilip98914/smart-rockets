@@ -3,6 +3,8 @@ class Population{
 		this.rockets=[];
 		this.matingPool=[];
 		this.maxfit=0;
+		this.successCount=0;
+		this.success=0;
 
 		for(let i=0;i<popsize;i++){
 			this.rockets[i]=new Rocket();
@@ -11,6 +13,19 @@ class Population{
 
 	}
 
+
+
+	calculateSuccess(){
+		for(let i=0;i<popsize;i++){
+			if(this.rockets[i].completed){
+				this.successCount++;
+			}
+		}
+		this.success=this.successCount/popsize;
+		this.success*=100;
+		console.log('success',this.success);
+		// console.log(this.success);
+	}
 
 
 	calculateAndNormalizePopFitness(targetVector){
@@ -35,6 +50,7 @@ class Population{
 	evaluate(targetVector){
 		this.calculateAndNormalizePopFitness(targetVector);	
 		this.matingPool=[];//reseting mating pool array
+
 		for(let i=0;i<popsize;i++){
 			let n=this.rockets[i].fitness*100;
 			for(let j=0;j<n;j++){
@@ -53,6 +69,7 @@ class Population{
 
 	selection(){
 		let newRockets=[];
+
 		for(let i=0;i<popsize;i++){
 			let parent1DNA=this.matingPool[this.randomIndex()].dna;
 			let parent2DNA=this.matingPool[this.randomIndex()].dna;
@@ -71,6 +88,7 @@ class Population{
 		for(let i=0;i<popsize;i++){
 			this.rockets[i].update(count);
 		}
+		this.calculateSuccess();
 	}
 
 	draw(ctx){

@@ -5,10 +5,6 @@ class Vec{
 
 	}
 
-
-
-
-
 	add(vector){
 		this.x+=vector.x;
 		this.y+=vector.y;
@@ -52,8 +48,15 @@ function createVectorfromVector(vec1,vec2){
 }
 
 function generateRandomVector(){
+	// let randX=Math.random()*2-1;
+	// let randY=Math.random()*-1;
+
 	let randX=Math.random()*2-1;
-	let randY=Math.random()*-1;
+	let randY=Math.random()*2-1;
+
+
+
+
 	// randX=Math.floor(randX*0.5);
 	// randY=Math.floor(randY*0.5);
 	return new Vec(randX,randY);

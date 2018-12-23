@@ -22,7 +22,6 @@ class DNA{
 				newGenes[i]=partnerDNA.genes[i];
 			}
 		}
-
 		return new DNA(newGenes);
 	}
 
@@ -31,6 +30,7 @@ class DNA{
 		for(let i=0;i<this.genes.length;i++){
 			if(Math.random()<0.01){
 				this.genes[i]=generateRandomVector();
+				console.log('mutation done!');
 			}
 		}
 	}

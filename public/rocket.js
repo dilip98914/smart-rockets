@@ -6,6 +6,7 @@ class Rocket{
 		this.w=5;
 		this.h=25;
 		this.angle=0;
+		this.completed=false;
 		if(dna){
 			this.dna=dna;
 		}else{
@@ -13,6 +14,7 @@ class Rocket{
 		}
 
 		this.fitness=0;
+		this.failed=false;
 	}
 
 
@@ -27,8 +29,10 @@ class Rocket{
 
 
 	calculateFitness(target){
+		if(!this.completed){
 		var d=getDistance(this.pos.x,this.pos.y,target.x,target.y);
 		this.fitness=1/d;
+		}
 
 	}
 
@@ -49,15 +53,47 @@ class Rocket{
 		return angle;
 	}
 
+
+	checkFailure(target){
+		if(this.pos.x>CONSTANTS.WIDTH ||
+			this.pos.x<0 ||
+			this.pos.y>CONSTANTS.HEIGHT ||
+			this.pos.y<0){
+				var d=getDistance(this.pos.x,this.pos.y,target.x,target.y);
+				this.fitness=1/d;
+				this.fitness/=10;
+				this.failed=true;
+
+		}
+
+	}
+
+
+
+	checkDestination(target){
+		var d=getDistance(this.pos.x,this.pos.y,target.x,target.y);
+		if(d<10 && d>0.001){
+			this.fitness=1/d;
+			this.fitness*=10;
+			// console.log(this.fitness);
+			this.completed=true;
+		}
+
+		this.checkFailure(target);
+	}
+
 	update(count){
 		this.updatePhy();
 		this.applyForce(this.dna.genes[count]);
+		this.checkDestination(CONSTANTS.targetVector);
 	}
 
 	updatePhy(){
+		if(!this.completed){
 		this.vel.add(this.accel);
 		this.pos.add(this.vel);
 		this.accel.mult(0);
+		}
 	}
 
 
